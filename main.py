@@ -9,7 +9,7 @@ token = util.prompt_for_user_token(username, scope, client_id='a5d677b7f92647b69
 
 if token:
     print("Connecting to database...")
-    conn = psycopg2.connect(database="postgres", user="updater", password="updater", host="scott")
+    conn = psycopg2.connect(database="spotify", user="postgres", password="postgres", host="localhost")
     print("Connected to database")
 
     cur = conn.cursor()
@@ -19,6 +19,7 @@ if token:
     items = results['items']
     print("Received {} tracks.".format(len(items)))
     for item in items:
+        
         played_at = item['played_at']
 
         track = item['track']
@@ -34,15 +35,17 @@ if token:
         album_id = album['id']
         album_name = album['name']
 
-        cur.execute("""INSERT INTO plays (username, played_at, track_id, track_name, track_duration_ms, artist_id,
-            artist_name, album_id, album_name) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s) ON CONFLICT DO NOTHING""",
-                    (username, played_at, track_id, track_name, track_duration_ms, artist_id, artist_name, album_id,
-                     album_name))
-        if cur.rowcount > 0:
-            print("Inserted {} - {}.".format(track_name, artist_name))
+    print(track)
 
-    conn.commit()
-    print("Update finished.")
+    #     cur.execute("""INSERT INTO plays (username, played_at, track_id, track_name, track_duration_ms, artist_id,
+    #         artist_name, album_id, album_name) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s) ON CONFLICT DO NOTHING""",
+    #                 (username, played_at, track_id, track_name, track_duration_ms, artist_id, artist_name, album_id,
+    #                  album_name))
+    #     if cur.rowcount > 0:
+    #         print("Inserted {} - {}.".format(track_name, artist_name))
+
+    # conn.commit()
+    # print("Update finished.")
 
 else:
     print("No token for", username)
