@@ -21,8 +21,6 @@ class SpotipyAdaptor:
         
         self.spotify_client = spotipy.client.Spotify(auth=token)
 
-    def 
-
 
 spotipy_adaptor = SpotipyAdaptor(
     username='114923525',
@@ -31,4 +29,4 @@ spotipy_adaptor = SpotipyAdaptor(
     client_secret='07c5a3ddf0c745ca9a80b8a5ceb07dc0',
     redirect_uri='http://localhost/'
 )
-i=1
+
